@@ -50,6 +50,8 @@ const submitForm = async (formEl: FormInstance | undefined) => {
 
 <template>
   <el-form
+    label-position="left"
+    style="max-width: 700px"
     ref="formRef"
     :model="dynamicValidateForm"
     label-width="120px"
@@ -110,7 +112,13 @@ const submitForm = async (formEl: FormInstance | undefined) => {
       <el-input v-model="dynamicValidateForm.amount" />
     </el-form-item>
     <el-form-item>
-      <el-button type="primary" @click="submitForm(formRef)">Submit</el-button>
+      <el-button class="btn-spacing" type="primary" @click="submitForm(formRef)"> Submit</el-button>
     </el-form-item>
   </el-form>
 </template>
+
+<style>
+.btn-spacing {
+  margin-top: 40px;
+}
+</style>

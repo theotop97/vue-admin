@@ -12,7 +12,8 @@ notices.value.map(v => (noticesNum.value += v.list.length));
 </script>
 
 <template>
-  <el-dropdown trigger="click" placement="bottom-end">
+  <!--  暂时隐藏了消息通知功能，后续有需要再加-->
+  <el-dropdown v-show="false" trigger="click" placement="bottom-end">
     <span class="dropdown-badge navbar-bg-hover select-none">
       <el-badge :value="noticesNum" :max="99">
         <span class="header-notice-icon">
