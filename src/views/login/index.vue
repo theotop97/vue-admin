@@ -8,8 +8,8 @@ import { useNav } from "@/layout/hooks/useNav";
 import type { FormInstance } from "element-plus";
 import { $t, transformI18n } from "@/plugins/i18n";
 import { useLayout } from "@/layout/hooks/useLayout";
-import { useUserStoreHook } from "@/store/modules/user";
-import { initRouter, getTopMenu } from "@/router/utils";
+
+import { addPathMatch } from "@/router/utils";
 import { bg, avatar, illustration } from "./utils/static";
 import { useRenderIcon } from "@/components/ReIcon/src/hooks";
 import { ref, reactive, toRaw, onMounted, onBeforeUnmount } from "vue";
@@ -22,6 +22,8 @@ import globalization from "@/assets/svg/globalization.svg?component";
 import Lock from "@iconify-icons/ri/lock-fill";
 import Check from "@iconify-icons/ep/check";
 import User from "@iconify-icons/ri/user-3-fill";
+import { setToken } from "@/utils/auth";
+import { usePermissionStoreHook } from "@/store/modules/permission";
 
 defineOptions({
   name: "Login"
@@ -49,17 +51,16 @@ const onLogin = async (formEl: FormInstance | undefined) => {
   if (!formEl) return;
   await formEl.validate((valid, fields) => {
     if (valid) {
-      useUserStoreHook()
-        .loginByUsername({ username: ruleForm.username, password: "admin123" })
-        .then(res => {
-          if (res.success) {
-            // 获取后端路由
-            initRouter().then(() => {
-              router.push(getTopMenu(true).path);
-              message("登录成功", { type: "success" });
-            });
-          }
-        });
+      // 全部采取静态路由模式
+      usePermissionStoreHook().handleWholeMenus([]);
+      addPathMatch();
+      setToken({
+        username: "admin",
+        roles: ["admin"],
+        accessToken: "eyJhbGciOiJIUzUxMiJ9.admin"
+      } as any);
+      router.push("/");
+      message("登录成功", { type: "success" });
     } else {
       loading.value = false;
       return fields;
