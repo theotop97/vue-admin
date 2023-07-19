@@ -112,7 +112,13 @@ const submitForm = async (formEl: FormInstance | undefined) => {
       <el-input v-model="dynamicValidateForm.amount" />
     </el-form-item>
     <el-form-item>
-      <el-button class="btn-spacing" type="primary" @click="submitForm(formRef)"> Submit</el-button>
+      <el-button
+        class="btn-spacing"
+        type="primary"
+        @click="submitForm(formRef)"
+      >
+        Submit
+      </el-button>
     </el-form-item>
   </el-form>
 </template>
