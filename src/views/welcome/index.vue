@@ -13,11 +13,12 @@ const { setOptions } = useECharts(barChartRef as Ref<HTMLDivElement>, {
   theme
 });
 
-const datas: number[] = new Array(6).fill(100);
+const yData: number[] = new Array(6).fill(100);
+const xData: string[] = ["1", "2", "3", "4", "5", "6"];
 
 setOptions({
   xAxis: {
-    data: ["1", "2", "3", "4", "5", "6"],
+    data: xData,
 
     name: "日期"
   },
@@ -27,7 +28,7 @@ setOptions({
   },
   series: [
     {
-      data: datas,
+      data: yData,
       type: "line",
       smooth: true
     }
