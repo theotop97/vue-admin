@@ -6,6 +6,7 @@ import { useI18n } from "@/plugins/i18n";
 import { getServerConfig } from "./config";
 import { createApp, Directive } from "vue";
 import { MotionPlugin } from "@vueuse/motion";
+import * as echarts from "echarts";
 // import { useEcharts } from "@/plugins/echarts";
 import { injectResponsiveStorage } from "@/utils/responsive";
 
@@ -51,6 +52,7 @@ getServerConfig(app).then(async config => {
   injectResponsiveStorage(app, config);
   setupStore(app);
   app.use(MotionPlugin).use(useI18n).use(ElementPlus);
+  app.config.globalProperties.$echarts = echarts;
   // .use(useEcharts);
   // .use(Table);
   // .use(PureDescriptions);
